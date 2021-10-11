@@ -3,6 +3,6 @@ defmodule HangmanTest do
   doctest Hangman
 
   test "greets the world" do
-    assert Hangman.hello() == :world
+    assert [1,2,3]==[1,2,3]
   end
 end
