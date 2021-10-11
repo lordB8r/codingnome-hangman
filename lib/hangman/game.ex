@@ -6,10 +6,14 @@ defmodule Hangman.Game do
     letters:    [],
     used:       MapSet.new(),
   )
-  def new_game() do
+
+  def new_game(word) do
     %Hangman.Game{
-      letters: Dictionary.random_word |> String.codepoints
+      letters: word |> String.codepoints
     }
+  end
+  def new_game() do
+    new_game(Dictionary.random_word)
   end
 
   def make_move(game = %{game_state: state}, _guess) when state in [:won, :lost] do
@@ -32,14 +36,15 @@ defmodule Hangman.Game do
 
   def score_guess(game, _good_guess = true) do
     new_state = MapSet.new(game.letters)
-    |> MapSet.subset?(letter_set, game.used)
+    |> MapSet.subset?(game.used)
     |> maybe_won()
-    Map.put(game, :game_state, )
+    Map.put(game, :game_state, new_state)
   end
 
   def score_guess(game, _not_good_guess) do
-    dec turns left
-    0? :lost, -> :bad_guess
+#    dec turns left
+#    0? :lost, :bad_guess
+    game
   end
 
   def tally(game) do
