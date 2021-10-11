@@ -89,5 +89,23 @@ defmodule GameTest do
 
   end
 
+  test "building a loop for good guesses" do
+    moves = [
+      {"w", :good_guess},
+      {"i", :good_guess},
+      {"b", :good_guess},
+      {"l", :good_guess},
+      {"e", :won}
+    ]
+
+    game = Game.new_game("wibble")
+
+    Enum.reduce(moves, game, fn ({guess, state}, game) ->
+      { game, _tally } = Game.make_move( game, guess )
+      assert game.game_state == state
+      game
+    end)
+  end
+
 
 end
